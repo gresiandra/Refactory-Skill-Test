@@ -88,7 +88,7 @@ function filteredJson(datas) {
                 console.log(`articles => id:${augustAtricles[j].id}, title:${augustAtricles[j].title} is published before august 2019`);    
             }
         }
-        console.log(" ")
+        console.log("  ")
 }   
 
 getData()

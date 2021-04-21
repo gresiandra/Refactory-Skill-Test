@@ -29,7 +29,7 @@ def order():
     # printing the receipt
     print("Receipt: ")
     print(" ")
-    print(" ")
+    print("  ")
     print(textwrap.fill('{:^30s}'.format(resto), 30))
     print(" ")
     print("Tanggal : " +textwrap.fill(datetimes, 30))
