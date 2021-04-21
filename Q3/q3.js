@@ -66,10 +66,12 @@ function filteredJson(datas) {
                 return articleData.title.includes('Tips')
             })
 
+            // printing articles that contain "tips" on the title.
             for (let J = 0; J < tipsAtricles.length; J++) {
                 console.log(`articles that has "Tips" in it => id:${tipsAtricles[0].id}, title:${tipsAtricles[0].title}`);    
             }
         }
+        console.log(" ")
 
 
         // Find articles published before August 2019.
@@ -81,10 +83,12 @@ function filteredJson(datas) {
 
             })
 
+            // Printing articles published before August 2019.
             for (let j = 0; j < augustAtricles.length; j++) {
                 console.log(`articles => id:${augustAtricles[j].id}, title:${augustAtricles[j].title} is published before august 2019`);    
             }
         }
+        console.log(" ")
 }   
 
 getData()

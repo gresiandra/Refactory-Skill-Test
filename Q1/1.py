@@ -24,7 +24,7 @@ def order():
         price = input("price: ")
         items.append(item)
         prices.append(price)
-        inputs = input("order again? (x to exit): ")
+        inputs = input("order again? (enter to continue) (x then enter to exit): ")
 
     # printing the receipt
     print("Receipt: ")
