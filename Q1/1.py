@@ -3,12 +3,14 @@ import textwrap
 
 def order():
 
+    # Variable inisiation
     inputs = True
     items = []
     prices = []
     total = 0
     totals = ''
 
+    # inputs
     resto = input("resto name: ")
     cashier = input("cashier name: ")
     date = datetime.datetime.now()
@@ -16,6 +18,7 @@ def order():
     times = date.strftime("%H:%M:%S")
     datetimes = dates + " " + times
 
+    # items and prices inputs
     while inputs != 'x':
         item = input("item: ")
         price = input("price: ")
@@ -23,6 +26,7 @@ def order():
         prices.append(price)
         inputs = input("order again? (x to exit): ")
 
+    # printing the receipt
     print("Receipt: ")
     print(" ")
     print(" ")
@@ -31,6 +35,7 @@ def order():
     print("Tanggal : " +textwrap.fill(datetimes, 30))
     print(" ")
     print("Nama Kasir : " +textwrap.fill(cashier, 30))
+    print(" ")
     print("==============================")
     for item,price in zip(items, prices):
         print(" ")
