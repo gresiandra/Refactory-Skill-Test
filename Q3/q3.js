@@ -70,6 +70,21 @@ function filteredJson(datas) {
                 console.log(`articles that has "Tips" in it => id:${tipsAtricles[0].id}, title:${tipsAtricles[0].title}`);    
             }
         }
+
+
+        // Find articles published before August 2019.
+        for (let i = 0; i < datas.length; i++) {
+            const augustAtricles = datas[i].articles.filter(articleDatas => {
+                aDates = new Date(articleDatas.published_at.substring(0,10))
+                aDates1 = new Date("2019-08-01")
+                return aDates < aDates1 == true
+
+            })
+
+            for (let j = 0; j < augustAtricles.length; j++) {
+                console.log(`articles => id:${augustAtricles[j].id}, title:${augustAtricles[j].title} is published before august 2019`);    
+            }
+        }
 }   
 
 getData()
