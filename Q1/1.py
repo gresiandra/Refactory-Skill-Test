@@ -34,7 +34,7 @@ def order():
     print(" ")
     print("Tanggal : " +textwrap.fill(datetimes, 30))
     print(" ")
-    print("Nama Kasir : " +textwrap.fill(cashier, 30))
+    print("Nama Kasir : " +textwrap.fill('{:>15s}'.format(cashier), 30))
     print(" ")
     print("==============================")
     for item,price in zip(items, prices):
