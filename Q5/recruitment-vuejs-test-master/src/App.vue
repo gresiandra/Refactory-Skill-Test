@@ -23,6 +23,5 @@ export default {
   background-color: #f5f7fa;
   margin: 0;
   padding: 10;
-  
 }
 </style>
