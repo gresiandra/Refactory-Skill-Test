@@ -45,7 +45,7 @@
         <button class="create" @click="toggleModal">+ Create New</button>
         <input type="text" placeholder="Cari">
       </div>
-      <div v-if="todoData" @click="deleteTask">
+      <div v-if="todoData" @click="deleteTask" @dblclick="taskDone">
         <div class="todos" v-for="todo in todoData" :key="todo.title">
           <div class="content">
             <h3>{{ todo.title }}</h3>
@@ -69,6 +69,7 @@ export default {
   data(){
     return {
       modals: false,
+      done: false,
       todoData: [
         {
           title: 'Meeting A Client',
@@ -76,13 +77,13 @@ export default {
           date: '',
         },
         {
-          title: 'Meeting A Client',
-          description: 'Meeting with hospital manager to talk about business',
+          title: 'Jogging',
+          description: 'Do a Jog in the park area until iftar',
           date: '',
         },
         {
-          title: 'Meeting A Client',
-          description: 'Meeting with hospital manager to talk about business',
+          title: 'Iftar',
+          description: 'Iftar at Rudi house today at 6',
           date: '',
         },
       ],
@@ -117,7 +118,7 @@ export default {
           e.target.parentNode.remove()
         }
       })
-    }
+    },
   }
 }
 </script>
@@ -229,20 +230,20 @@ nav ul li {
 }
 
 #todo .new .create {
-  height: 30px;
+  height: 35px;
   border-radius: 10px;
   background: #0442d0;
   border: none;
   color: beige;
   margin-right: 10px;
-  flex-grow: 1;
+  flex-grow: 1.5;
   cursor: pointer;
 }
 
 #todo .new input {
   flex-grow: 5;
   border-radius: 10px;
-  height: 30px;
+  height: 35px;
   border: 1px solid #0442d0;
 }
 
@@ -271,7 +272,7 @@ nav ul li {
 
 .greeting div h3 {
   text-align: left;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   color: #fabe2c;
 }
 
@@ -396,7 +397,7 @@ nav ul li {
 
 .todos .content {
   flex-grow: 10;
-  padding: 20px;
+  padding: 20px 20px 20px 0;
 }
 
 .todos .delete {
@@ -419,10 +420,14 @@ nav ul li {
   font-size: 0.8rem;
 }
 
-@media screen and (max-width: 700) {
+@media screen and (max-width: 750px) {
   .container {
     display: flex;
     flex-direction: column;
+  }
+
+  #side {
+    min-height: 100px;
   }
 }
 
