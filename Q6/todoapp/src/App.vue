@@ -43,14 +43,14 @@
       <h2>Task For Today</h2>
       <div class="new">
         <button class="create" @click="toggleModal">+ Create New</button>
-        <input type="text" placeholder="Cari">
+        <input type="text" placeholder="Cari" @keypress="search">
       </div>
       <div v-if="todoData" @click="deleteTask" @dblclick="taskDone">
         <div class="todos" v-for="todo in todoData" :key="todo.title">
           <div class="content">
             <h3>{{ todo.title }}</h3>
+            <h4>{{ todo.date }}</h4>
             <p>{{ todo.description }}</p>
-            <p>{{ todo.date }}</p>
           </div>
           <div class="delete">X</div>
         </div>
@@ -74,17 +74,17 @@ export default {
         {
           title: 'Meeting A Client',
           description: 'Meeting with hospital manager to talk about business',
-          date: '',
+          date: '2020-01-01',
         },
         {
           title: 'Jogging',
           description: 'Do a Jog in the park area until iftar',
-          date: '',
+          date: '2020-04-25',
         },
         {
           title: 'Iftar',
           description: 'Iftar at Rudi house today at 6',
-          date: '',
+          date: '2020-03-21',
         },
       ],
       title: '',
@@ -413,7 +413,13 @@ nav ul li {
 
 .todos h3 {
   font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.todos h4 {
+  font-size: 1rem;
   margin-bottom: 15px;
+  color: rgb(4, 65, 208, 0.5);
 }
 
 .todos p {
