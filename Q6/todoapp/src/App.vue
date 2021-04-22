@@ -119,6 +119,12 @@ export default {
         }
       })
     },
+    // search(e){
+    //   if (e.key === "Enter") {
+    //     const todoDatas = this.todoData.filter(item => item.title.includes(e.target.value))
+    //     console.log(this.todoData)
+    //   }
+    // }
   }
 }
 </script>
