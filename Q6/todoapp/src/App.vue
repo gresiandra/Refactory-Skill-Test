@@ -7,6 +7,26 @@
             <li><img class="setting" src="./assets/settings.png" alt=""> </li>
         </ul>
   </nav> 
+  <div class="modal" v-if="modals">
+    <div class="forms">
+      <form method="get" @submit.prevent="addData">
+        <h4>New Task</h4>
+        <label class="title">Title
+          <input type="text" v-model="title" placeholder="Fill Title">
+        </label>
+        <label class="description">Description
+          <input type="text" v-model="description" placeholder="Fill Description">
+        </label>
+        <label class="date">Date
+          <input type="date" v-model="date">
+        </label>
+        <div class="buttons">
+          <button @click="toggleModal">Cancel</button>
+          <button type="submit">Create</button>
+        </div>
+      </form>
+    </div>
+  </div>
   <div class="container">
 
     <div id="side">
@@ -14,7 +34,7 @@
         <img src="./assets/to-do-list.png" alt="">
         <div>
           <h3>Hallo Gresiandra</h3>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consectetur, neque.</p>
+          <p>You have several todos that has to be done</p>
         </div>
       </div>
     </div>
@@ -22,8 +42,18 @@
     <div id="todo">
       <h2>Task For Today</h2>
       <div class="new">
-        <button class="create">+ Create New</button>
+        <button class="create" @click="toggleModal">+ Create New</button>
         <input type="text" placeholder="Cari">
+      </div>
+      <div v-if="todoData" @click="deleteTask">
+        <div class="todos" v-for="todo in todoData" :key="todo.title">
+          <div class="content">
+            <h3>{{ todo.title }}</h3>
+            <p>{{ todo.description }}</p>
+            <p>{{ todo.date }}</p>
+          </div>
+          <div class="delete">X</div>
+        </div>
       </div>
     </div>
 
@@ -31,12 +61,63 @@
 </template>
 
 <script>
-import Modal from './components/Modal'
 
 export default {
   name: 'App',
   components: {
-    Modal
+  },
+  data(){
+    return {
+      modals: false,
+      todoData: [
+        {
+          title: 'Meeting A Client',
+          description: 'Meeting with hospital manager to talk about business',
+          date: '',
+        },
+        {
+          title: 'Meeting A Client',
+          description: 'Meeting with hospital manager to talk about business',
+          date: '',
+        },
+        {
+          title: 'Meeting A Client',
+          description: 'Meeting with hospital manager to talk about business',
+          date: '',
+        },
+      ],
+      title: '',
+      description: '',
+      date: '',
+    }
+  },
+  methods: {
+    toggleModal(){
+      this.modals = !this.modals
+    },
+    addData() {
+      if (this.title != '' && this.description != '') {
+        let todo = {
+          title: this.title,
+          description: this.description,
+          date: this.date
+        }
+        this.todoData.push(todo)
+
+        this.title = ''
+        this.description = ''
+        this.date = '' 
+      }
+
+      console.log(this.todoData[0].title)
+    },
+    deleteTask(){
+      document.addEventListener('click', e => {
+        if (e.target.classList.contains('delete')) {
+          e.target.parentNode.remove()
+        }
+      })
+    }
   }
 }
 </script>
@@ -110,6 +191,7 @@ nav ul li {
 }
 
 .container {
+  margin: 10px;
   margin-top: 100px;
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -154,6 +236,7 @@ nav ul li {
   color: beige;
   margin-right: 10px;
   flex-grow: 1;
+  cursor: pointer;
 }
 
 #todo .new input {
@@ -194,7 +277,153 @@ nav ul li {
 
 .greeting div p {
   text-align: left;
+  font-size: 1rem;
   color: beige;
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.5);
+}
+
+.modal .forms form {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-top: 100px;
+  padding: 40px;
+  width: 400px;
+  min-height: 400px;
+  background: ghostwhite;
+  z-index: 1;
+  border-radius: 10px;
+}
+
+.modal .forms form label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.modal .forms form h4 {
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+.modal .forms form .title {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.modal .forms form .title input {
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid rgba(0,0,0,0.2);
+  margin-top: 10px;
+  padding: 20px;
+}
+
+.modal .forms form .description {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.modal .forms form .description input {
+  height: 100px;
+  border-radius: 5px;
+  border: 1px solid rgba(0,0,0,0.2);
+  margin-top: 10px;
+  padding: 20px;
+}
+
+.modal .forms form .date {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.modal .forms form .date input {
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid rgba(0,0,0,0.2);
+  margin-top: 10px;
+  padding: 15px 20px 30px; 
+}
+
+.modal .buttons {
+  align-self: flex-end;
+  margin: 20px 0 0;
+}
+
+.modal .buttons button:last-child {
+  width: 100px;
+  height: 30px;
+  border-radius: 10px;
+  background: #0442d0;
+  border: none;
+  color: beige;
+  margin-right: 10px;
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+.modal .buttons button:first-child {
+  width: 100px;
+  height: 30px;
+  border-radius: 10px;
+  color: #0442d0;
+  border: none;
+  background: white;
+  margin-right: 10px;
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+.todos {
+  display: flex;
+  padding: 20px;
+  text-align: left;
+  box-shadow: 0 0 5px 1px rgba(0,0,0,0.2);
+  border-radius: 10px;
+  margin-bottom: 25px;
+}
+
+.todos .content {
+  flex-grow: 10;
+  padding: 20px;
+}
+
+.todos .delete {
+  flex-grow: 0.3;
+  align-self: center;
+  background: crimson;
+  text-align: center;
+  color: beige;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.todos h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.todos p {
+  font-size: 0.8rem;
+}
+
+@media screen and (max-width: 700) {
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 </style>
