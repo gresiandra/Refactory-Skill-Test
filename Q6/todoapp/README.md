@@ -1,3 +1,6 @@
+### This app is made with Vue.JS using npm package manager.
+i wasn't able to find the Calendar library, i hope you please with what i did here :) 
+
 # todoapp
 
 ## Project setup
