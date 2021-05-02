@@ -56,10 +56,11 @@
           <div class="content">
             <div class="completeTodo">
               <h3>{{ todo.title }}</h3> 
-              <span @click="toggleComplete">Not Complete</span>
+              <span v-if="todo.done === false" @click="todo.done = !todo.done">Set as Complete</span>
+              <span class="complete" v-if="todo.done" @click="todo.done = !todo.done">Complete</span>
             </div>
             <h4>{{ todo.date }}</h4>
-            <p>{{ todo.description }}</p>
+            <p class="todoDesc">{{ todo.description }}</p>
           </div>
           <div class="delete fa fa-trash-o fa-lg" @click="deleteTask(todo.id)"></div>
         </div>
@@ -84,13 +85,15 @@ export default {
           id: 0,
           title: 'This is example todo',
           description: 'lorem ipsum sidolor amet blabla minyak tawon minyak kelapa minyak oil',
-          date: '1-3-2016'
+          date: '1-3-2016',
+          done: false
         },
         {
           id: 1,
           title: 'Another example todo',
           description: 'lorem ipsum sidolor amet blabla minyak tawon minyak kelapa minyak oil',
-          date: '25-11-2020'
+          date: '25-11-2020',
+          done: false
         },
       ],
       id: 2,
@@ -104,21 +107,14 @@ export default {
     toggleModal(){
       this.modals = !this.modals
     },
-    toggleComplete(e){
-      e.target.classList.toggle('complete')
-      if (e.target.classList.contains('complete')) {
-        e.target.textContent = 'Completed' 
-      } else {
-        e.target.textContent = 'Not completed'
-      }
-    },
     addData() {
       if (this.title != '' && this.description != '') {
         let todo = {
           id: this.id++,
           title: this.title,
           description: this.description,
-          date: this.date
+          date: this.date,
+          done: this.done
         }
         this.todoData.push(todo)
         this.countData += 1
@@ -230,7 +226,6 @@ nav ul li {
   text-align: left;
   margin-bottom: 10px;
   padding: 10px;
-  /* border: 1px solid black; */
 }
 
 #todo .new {
@@ -239,7 +234,6 @@ nav ul li {
   margin-bottom: 30px;
   padding: 10px;
   display: flex;
-  /* border: 1px solid black; */
 }
 
 #todo .new .create {
@@ -481,6 +475,10 @@ nav ul li {
   .todos .content {
     text-align: center;
     padding: 5px;
+  }
+
+  .todos .content .todoDesc {
+    text-align: left;
   }
 
   .todos .content .completeTodo {
