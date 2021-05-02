@@ -49,9 +49,9 @@
       <h2>Task For Today</h2>
       <div class="new">
         <button class="create" @click="toggleModal">+ Create New</button>
-        <input type="text" placeholder="Cari" @keypress="search">
+        <input type="text" placeholder="Cari" v-model="search">
       </div>
-      <div v-if="todoData">
+      <div>
         <div class="todos" v-for="todo in todoData" :key="todo.id">
           <div class="content">
             <div class="completeTodo">
@@ -70,8 +70,6 @@
 </template>
 
 <script>
-import { ref } from 'vue'
-
 export default {
   name: 'App',
   components: {
@@ -101,7 +99,16 @@ export default {
       description: '',
       date: '',
       countData: 2,
+      search: '',
     }
+  },
+  computed: {
+    // todoLoop() {
+    //   return this.todoData.filter(todo => {
+    //     todo.title.includes(this.search)
+    //     console.log(todo.title.includes(this.search))
+    //   })
+    // }
   },
   methods: {
     toggleModal(){
