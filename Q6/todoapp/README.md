@@ -6,9 +6,11 @@ i wasn't able to find the Calendar library, i hope you please with what i did he
 
 
 # Modal
-![modal](https://user-images.githubusercontent.com/25950637/115680110-78ed7700-a37d-11eb-8b9d-f5ee14606005.png)
+![modal](https://user-images.githubusercontent.com/25950637/116804536-a5597e00-ab49-11eb-97e2-08b7a22245e0.png)
+
 
 
 # Mobile
-![mobile](https://user-images.githubusercontent.com/25950637/116804473-472c9b00-ab49-11eb-9574-22007b31171d.png)
+![mobile (2)](https://user-images.githubusercontent.com/25950637/116804545-ac808c00-ab49-11eb-8f84-839814208279.png)
+
 
