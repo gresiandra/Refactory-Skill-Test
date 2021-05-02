@@ -1,4 +1,5 @@
 <template>
+  <!-- navbar -->
   <nav class="navigation">
         <div class="logo">Logo</div>
         <ul>
@@ -7,6 +8,8 @@
             <li><img class="setting" src="./assets/settings.png" alt=""> </li>
         </ul>
   </nav> 
+
+  <!-- pop-up modals -->
   <div class="modal" v-if="modals">
     <div class="forms">
       <form method="get" @submit.prevent="addData">
@@ -27,40 +30,46 @@
       </form>
     </div>
   </div>
+
   <div class="container">
 
+    <!-- side notification -->
     <div id="side">
       <div class="greeting">
         <img src="./assets/to-do-list.png" alt="">
         <div>
           <h3>Hallo Gresiandra</h3>
-          <p>You have several todos that has to be done</p>
+          <p>You currently have {{ countData }} todo(s) left. Already completed task today?</p>
         </div>
       </div>
     </div>
 
+    <!-- main todo app -->
     <div id="todo">
       <h2>Task For Today</h2>
       <div class="new">
         <button class="create" @click="toggleModal">+ Create New</button>
         <input type="text" placeholder="Cari" @keypress="search">
       </div>
-      <div v-if="todoData" @click="deleteTask" @dblclick="taskDone">
-        <div class="todos" v-for="todo in todoData" :key="todo.title">
+      <div v-if="todoData">
+        <div class="todos" v-for="todo in todoData" :key="todo.id">
           <div class="content">
-            <h3>{{ todo.title }}</h3>
+            <div class="completeTodo">
+              <h3>{{ todo.title }}</h3> 
+              <span @click="toggleComplete">Not Complete</span>
+            </div>
             <h4>{{ todo.date }}</h4>
             <p>{{ todo.description }}</p>
           </div>
-          <div class="delete">X</div>
+          <div class="delete fa fa-trash-o fa-lg" @click="deleteTask(todo.id)"></div>
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
+import { ref } from 'vue'
 
 export default {
   name: 'App',
@@ -72,60 +81,58 @@ export default {
       done: false,
       todoData: [
         {
-          title: 'Meeting A Client',
-          description: 'Meeting with hospital manager to talk about business',
-          date: '2020-01-01',
+          id: 0,
+          title: 'This is example todo',
+          description: 'lorem ipsum sidolor amet blabla minyak tawon minyak kelapa minyak oil',
+          date: '1-3-2016'
         },
         {
-          title: 'Jogging',
-          description: 'Do a Jog in the park area until iftar',
-          date: '2020-04-25',
-        },
-        {
-          title: 'Iftar',
-          description: 'Iftar at Rudi house today at 6',
-          date: '2020-03-21',
+          id: 1,
+          title: 'Another example todo',
+          description: 'lorem ipsum sidolor amet blabla minyak tawon minyak kelapa minyak oil',
+          date: '25-11-2020'
         },
       ],
+      id: 2,
       title: '',
       description: '',
       date: '',
+      countData: 2,
     }
   },
   methods: {
     toggleModal(){
       this.modals = !this.modals
     },
+    toggleComplete(e){
+      e.target.classList.toggle('complete')
+      if (e.target.classList.contains('complete')) {
+        e.target.textContent = 'Completed' 
+      } else {
+        e.target.textContent = 'Not completed'
+      }
+    },
     addData() {
       if (this.title != '' && this.description != '') {
         let todo = {
+          id: this.id++,
           title: this.title,
           description: this.description,
           date: this.date
         }
         this.todoData.push(todo)
+        this.countData += 1
 
         this.title = ''
         this.description = ''
         this.date = '' 
       }
-
-      console.log(this.todoData[0].title)
     },
-    deleteTask(){
-      document.addEventListener('click', e => {
-        if (e.target.classList.contains('delete')) {
-          e.target.parentNode.remove()
-        }
-      })
+    deleteTask(id){
+      this.todoData = this.todoData.filter(data => data.id != id)
+      this.countData -= 1
     },
-    // search(e){
-    //   if (e.key === "Enter") {
-    //     const todoDatas = this.todoData.filter(item => item.title.includes(e.target.value))
-    //     console.log(this.todoData)
-    //   }
-    // }
-  }
+  },
 }
 </script>
 
@@ -306,7 +313,7 @@ nav ul li {
   text-align: left;
   margin-top: 100px;
   padding: 40px;
-  width: 400px;
+  min-width: 350px;
   min-height: 400px;
   background: ghostwhite;
   z-index: 1;
@@ -406,20 +413,41 @@ nav ul li {
   padding: 20px 20px 20px 0;
 }
 
+.todos .content .completeTodo {
+  display: flex;
+}
+
+.todos .content .completeTodo h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
+.todos .content .completeTodo span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  height: 25px;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  background: rgba(51, 51, 51, 0.3);
+}
+
+.todos .content .completeTodo span.complete {
+  background: rgba(7, 168, 56, 0.5);
+}
+
 .todos .delete {
   flex-grow: 0.3;
   align-self: center;
-  background: crimson;
   text-align: center;
-  color: beige;
   padding: 5px;
   border-radius: 5px;
   cursor: pointer;
-}
-
-.todos h3 {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
 }
 
 .todos h4 {
@@ -441,6 +469,36 @@ nav ul li {
   #side {
     min-height: 100px;
   }
+
+  .todos {
+    flex-direction: column;
+  }
+
+  .todos .delete {
+    margin-top: 15px;
+  }
+
+  .todos .content {
+    text-align: center;
+    padding: 5px;
+  }
+
+  .todos .content .completeTodo {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .todos .content .completeTodo span {
+    text-align: center;
+    width: auto;
+  }
+
+  .todos .content .completeTodo h3 {
+    margin-right: 5px;
+  }
+
 }
 
 </style>
