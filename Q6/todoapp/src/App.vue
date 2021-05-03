@@ -83,14 +83,14 @@ export default {
           id: 0,
           title: 'This is example todo',
           description: 'lorem ipsum sidolor amet blabla minyak tawon minyak kelapa minyak oil',
-          date: '1-3-2016',
+          date: '2017-02-03',
           done: false
         },
         {
           id: 1,
           title: 'Another example todo',
           description: 'lorem ipsum sidolor amet blabla minyak tawon minyak kelapa minyak oil',
-          date: '25-11-2020',
+          date: '2020-09-11',
           done: false
         },
       ],
