@@ -48,11 +48,11 @@
     <div id="todo">
       <h2>Task For Today</h2>
       <div class="new">
-        <button class="create" @click="toggleModal">+ Create New</button>
-        <input type="text" placeholder="Cari" v-model="search">
+        <button class="create" @click="toggleModal">New Task</button>
+        <input type="text" placeholder="Cari ToDo" v-model="search">
       </div>
       <div>
-        <div class="todos" v-for="todo in todoData" :key="todo.id">
+        <div class="todos" v-for="todo in todoLoop" :key="todo.id">
           <div class="content">
             <div class="completeTodo">
               <h3>{{ todo.title }}</h3> 
@@ -103,12 +103,11 @@ export default {
     }
   },
   computed: {
-    // todoLoop() {
-    //   return this.todoData.filter(todo => {
-    //     todo.title.includes(this.search)
-    //     console.log(todo.title.includes(this.search))
-    //   })
-    // }
+    todoLoop: function() {
+      return this.todoData.filter(todo => {
+        return todo.title.includes(this.search)
+      })
+    }
   },
   methods: {
     toggleModal(){
@@ -239,8 +238,8 @@ nav ul li {
   width: 100%;
   text-align: left;
   margin-bottom: 30px;
-  padding: 10px;
   display: flex;
+  padding: 10px 0;
 }
 
 #todo .new .create {
@@ -261,7 +260,7 @@ nav ul li {
   border: 1px solid #0442d0;
 }
 
-#todo .new input[placeholder="Cari"] {
+#todo .new input[placeholder="Cari ToDo"] {
   text-align: center;
   color: #0442d0;
 }
