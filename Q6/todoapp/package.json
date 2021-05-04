@@ -7,7 +7,14 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@fullcalendar/core": "^5.6.0",
+    "@fullcalendar/daygrid": "^5.6.0",
+    "@fullcalendar/interaction": "^5.6.0",
+    "@fullcalendar/vue": "^5.6.0",
+    "@popperjs/core": "^2.9.2",
     "core-js": "^3.6.5",
+    "fullcalendar": "^5.6.0",
+    "v-calendar": "^3.0.0-alpha.4",
     "vue": "^3.0.0"
   },
   "devDependencies": {

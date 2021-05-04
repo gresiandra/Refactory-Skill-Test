@@ -21,7 +21,7 @@
           <input type="text" v-model="description" placeholder="Fill Description">
         </label>
         <label class="date">Date
-          <input type="date" v-model="date">
+          <DatePicker v-model="dates"/>
         </label>
         <div class="buttons">
           <button @click="toggleModal">Cancel</button>
@@ -31,6 +31,7 @@
     </div>
   </div>
 
+  <!-- main content  -->
   <div class="container">
 
     <!-- side notification -->
@@ -42,6 +43,10 @@
           <p>You currently have {{ countData }} todo(s) left. Already completed task today?</p>
         </div>
       </div>
+      <div id="calendar">
+        <Calendar />
+        <!-- <DatePicker v-model="dates"/> -->
+      </div>
     </div>
 
     <!-- main todo app -->
@@ -49,7 +54,7 @@
       <h2>Task For Today</h2>
       <div class="new">
         <button class="create" @click="toggleModal">New Task</button>
-        <input type="text" placeholder="Cari ToDo" v-model="search">
+        <input type="text" placeholder="Search Task" v-model="search">
       </div>
       <div>
         <div class="todos" v-for="todo in todoLoop" :key="todo.id">
@@ -65,39 +70,46 @@
           <div class="delete fa fa-trash-o fa-lg" @click="deleteTask(todo.id)"></div>
         </div>
       </div>
+      <div class="noTask" v-if="todoData.length === 0">
+        <h2>No Task Available</h2>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { Calendar, DatePicker } from 'v-calendar';
+
 export default {
   name: 'App',
-  components: {
-  },
+  components: { Calendar,DatePicker },
   data(){
     return {
+      dates: new Date(),
+      date: '',
       modals: false,
       done: false,
       todoData: [
         {
           id: 0,
           title: 'This is example todo',
-          description: 'lorem ipsum sidolor amet blabla minyak tawon minyak kelapa minyak oil',
-          date: '2017-02-03',
+          description: 'lorem ipsum sidolor amet Vestibulum maximus feugiat ipsum. Mauris aliquet in ipsum sit amet dignissim. Aliquam quis lacinia justo.',
+          dates: '',
+          date: 'Feb 02 2017',
           done: false
         },
         {
           id: 1,
           title: 'Another example todo',
-          description: 'lorem ipsum sidolor amet blabla minyak tawon minyak kelapa minyak oil',
-          date: '2020-09-11',
+          description: 'lorem ipsum sidolor amet Duis commodo massa sem. Praesent pellentesque, velit faucibus auctor sollicitudin, nisi arcu finibus ipsum, id tristique metus urna quis enim.',
+          dates: '',
+          date: 'Sep 11 2020',
           done: false
         },
       ],
       id: 2,
       title: '',
       description: '',
-      date: '',
       countData: 2,
       search: '',
     }
@@ -114,11 +126,15 @@ export default {
       this.modals = !this.modals
     },
     addData() {
+      this.date = this.dates.toString().substr(4,12)
+      console.log(this.date)
+
       if (this.title != '' && this.description != '') {
         let todo = {
           id: this.id++,
           title: this.title,
           description: this.description,
+          dates: this.dates,
           date: this.date,
           done: this.done
         }
@@ -127,7 +143,8 @@ export default {
 
         this.title = ''
         this.description = ''
-        this.date = '' 
+        this.dates = ''  
+        this.date = ''  
       }
     },
     deleteTask(id){
@@ -198,6 +215,7 @@ nav ul li {
 .setting {
   width: 20px;
   height: 20px;
+  cursor: pointer;
 }
 
 .profile {
@@ -225,6 +243,10 @@ nav ul li {
   justify-content: flex-start;
   align-content: flex-start;
   padding: 10px;
+}
+
+#calendar {
+  margin-top: 70px;
 }
 
 #todo h2 {
@@ -260,9 +282,13 @@ nav ul li {
   border: 1px solid #0442d0;
 }
 
-#todo .new input[placeholder="Cari ToDo"] {
+#todo .new input[placeholder="Search Task"] {
   text-align: center;
   color: #0442d0;
+}
+
+#todo .noTask h2{
+  text-align: center;
 }
 
 .greeting {
@@ -297,13 +323,14 @@ nav ul li {
 
 .modal {
   display: flex;
+  align-items: center;
   justify-content: center;
-  align-content: center;
-  position: fixed;
-  top: 0;
+  position: absolute;
+  top: -70px;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 150vh;
+  z-index: 100;
   background: rgba(0,0,0,0.5);
 }
 
@@ -313,7 +340,7 @@ nav ul li {
   text-align: left;
   margin-top: 100px;
   padding: 40px;
-  min-width: 350px;
+  min-width: 500px;
   min-height: 400px;
   background: ghostwhite;
   z-index: 1;
@@ -327,7 +354,7 @@ nav ul li {
 }
 
 .modal .forms form h4 {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   font-size: 1.2rem;
 }
 
@@ -350,7 +377,7 @@ nav ul li {
 }
 
 .modal .forms form .description input {
-  height: 100px;
+  height: 50px;
   border-radius: 5px;
   border: 1px solid rgba(0,0,0,0.2);
   margin-top: 10px;
@@ -360,14 +387,6 @@ nav ul li {
 .modal .forms form .date {
   font-size: 1.1rem;
   font-weight: 700;
-}
-
-.modal .forms form .date input {
-  height: 30px;
-  border-radius: 5px;
-  border: 1px solid rgba(0,0,0,0.2);
-  margin-top: 10px;
-  padding: 15px 20px 30px; 
 }
 
 .modal .buttons {
@@ -470,6 +489,11 @@ nav ul li {
     min-height: 100px;
   }
 
+  #calendar {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
   .todos {
     flex-direction: column;
   }
@@ -501,6 +525,10 @@ nav ul li {
 
   .todos .content .completeTodo h3 {
     margin-right: 5px;
+  }
+
+  .modal .forms form {
+    min-width: 350px;
   }
 
 }
