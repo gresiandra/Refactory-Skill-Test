@@ -2,15 +2,14 @@
 i wasn't able to find the Calendar library, i hope you please with what i did here :) 
 
 # Desktop
-![desktop](https://user-images.githubusercontent.com/25950637/116804469-40058d00-ab49-11eb-800e-1b2530e08491.png)
+![desktop](https://user-images.githubusercontent.com/25950637/117238570-54060300-ae57-11eb-9d98-acf635e6f611.png)
 
 
 # Modal
-![modal](https://user-images.githubusercontent.com/25950637/116804536-a5597e00-ab49-11eb-97e2-08b7a22245e0.png)
+![modal](https://user-images.githubusercontent.com/25950637/117238582-5d8f6b00-ae57-11eb-9a1f-4e9837c8a46e.png)
 
 
 # Mobile
-![mobile](https://user-images.githubusercontent.com/25950637/116804587-0e40f600-ab4a-11eb-818a-30ea42da2fd5.png)
-
+![mobile](https://user-images.githubusercontent.com/25950637/117238597-64b67900-ae57-11eb-994f-48f1dc277603.png)
 
 
