@@ -13,7 +13,6 @@
   <div class="modal" v-if="modals">
     <div class="forms">
       <form method="get" @submit.prevent="addData">
-        <h4>New Task</h4>
         <label class="title">Title
           <input type="text" v-model="title" placeholder="Fill Title">
         </label>
@@ -44,8 +43,7 @@
         </div>
       </div>
       <div id="calendar">
-        <Calendar />
-        <!-- <DatePicker v-model="dates"/> -->
+        <DatePicker v-model="dates1"/>
       </div>
     </div>
 
@@ -86,6 +84,7 @@ export default {
   data(){
     return {
       dates: new Date(),
+      dates1: new Date(),
       date: '',
       modals: false,
       done: false,
@@ -94,7 +93,6 @@ export default {
           id: 0,
           title: 'This is example todo',
           description: 'lorem ipsum sidolor amet Vestibulum maximus feugiat ipsum. Mauris aliquet in ipsum sit amet dignissim. Aliquam quis lacinia justo.',
-          dates: '',
           date: 'Feb 02 2017',
           done: false
         },
@@ -102,7 +100,6 @@ export default {
           id: 1,
           title: 'Another example todo',
           description: 'lorem ipsum sidolor amet Duis commodo massa sem. Praesent pellentesque, velit faucibus auctor sollicitudin, nisi arcu finibus ipsum, id tristique metus urna quis enim.',
-          dates: '',
           date: 'Sep 11 2020',
           done: false
         },
@@ -117,9 +114,10 @@ export default {
   computed: {
     todoLoop: function() {
       return this.todoData.filter(todo => {
-        return todo.title.includes(this.search)
+        // || todo.date === this.dates1.toString().substr(4,12)
+        return todo.title.includes(this.search) 
       })
-    }
+    },
   },
   methods: {
     toggleModal(){
@@ -134,7 +132,6 @@ export default {
           id: this.id++,
           title: this.title,
           description: this.description,
-          dates: this.dates,
           date: this.date,
           done: this.done
         }
@@ -323,10 +320,9 @@ nav ul li {
 
 .modal {
   display: flex;
-  align-items: center;
   justify-content: center;
-  position: absolute;
-  top: -70px;
+  position: fixed;
+  top: 0;
   left: 0;
   width: 100vw;
   height: 150vh;
@@ -338,8 +334,9 @@ nav ul li {
   display: flex;
   flex-direction: column;
   text-align: left;
-  margin-top: 100px;
-  padding: 40px;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  padding: 25px 40px;
   min-width: 500px;
   min-height: 400px;
   background: ghostwhite;
@@ -353,13 +350,8 @@ nav ul li {
   margin-bottom: 20px;
 }
 
-.modal .forms form h4 {
-  margin-bottom: 20px;
-  font-size: 1.2rem;
-}
-
 .modal .forms form .title {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
 }
 
@@ -372,12 +364,12 @@ nav ul li {
 }
 
 .modal .forms form .description {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
 }
 
 .modal .forms form .description input {
-  height: 50px;
+  height: 30px;
   border-radius: 5px;
   border: 1px solid rgba(0,0,0,0.2);
   margin-top: 10px;
@@ -385,7 +377,7 @@ nav ul li {
 }
 
 .modal .forms form .date {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
 }
 
@@ -477,6 +469,11 @@ nav ul li {
 
 .todos p {
   font-size: 0.8rem;
+}
+
+.vc-weeks {
+    padding: 8px;
+    width: 260px;
 }
 
 @media screen and (max-width: 750px) {
