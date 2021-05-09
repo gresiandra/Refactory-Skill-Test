@@ -1,5 +1,4 @@
 ### This app is made with Vue.JS using npm package manager.
-i wasn't able to find the Calendar library, i hope you please with what i did here :) 
 
 # Desktop
 ![desktop](https://user-images.githubusercontent.com/25950637/117238570-54060300-ae57-11eb-9d98-acf635e6f611.png)
